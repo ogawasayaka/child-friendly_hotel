@@ -2,7 +2,7 @@ class CreateReviews < ActiveRecord::Migration[7.0]
   def change
     create_table :reviews do |t|
       t.text :review_user
-      t.time :review_time
+      t.timestamp :review_time
       t.text :review
       t.text :url
       t.integer :age

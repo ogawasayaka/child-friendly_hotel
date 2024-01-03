@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_03_044545) do
 
   create_table "reviews", force: :cascade do |t|
     t.text "review_user"
-    t.time "review_time"
+    t.datetime "review_time", precision: nil
     t.text "review"
     t.text "url"
     t.integer "age"
