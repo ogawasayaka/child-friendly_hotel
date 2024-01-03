@@ -1,23 +1,25 @@
 require 'csv'
 
 namespace :import do
-  desc "Import hotels from csv"
+  desc "Import reviews from csv"
 
-  task hotels: :environment do
-    path = File.join Rails.root, "db/csv/hotel_table.csv"
+  task reviews: :environment do
+    path = File.join Rails.root, "db/csv/review_table.csv"
     puts "path: #{path}"
     list = []
     CSV.foreach(path, headers: true) do |row|
       list << {
-
-          name: row[1],
-          prefecture: row[2],
-          name_url: row[3]
+          review_user: row['review_user'],
+          review_time: row['review_time'],
+          review: row['review'],
+          url: row['url'],
+          age: row['age'],
+          hotel_id: row['hotel_id']
       }
     end
-    puts "start to create hotels data"
+    puts "start to create reviews data"
     begin
-      Hotel.create!(list)
+      Review.create!(list)
       puts "completed!!"
     rescue ActiveModel::UnknownAttributeError => invalid
       puts "raised error : unKnown attribute "

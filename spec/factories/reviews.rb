@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :review do
-    hotel_id { 1 }
-    review_user { "MyString" }
-    review_time { "2024-01-03 06:03:01" }
+    review_user { "MyText" }
+    review_time { "2024-01-03 13:45:46" }
     review { "MyText" }
-    url { "MyString" }
+    url { "MyText" }
     age { 1 }
+    hotel_id { 1 }
   end
 end
