@@ -10,7 +10,7 @@ namespace :import_hotel do
     CSV.foreach(path, headers: true) do |row|
       list << {
           name: row['name'],
-          prefecture: row['prefecture'],
+          prefecture_id: row['prefecture_id'],
           name_url: row['name_url'],
       }
     end

@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_03_070405) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_06_151009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "hotels", force: :cascade do |t|
     t.string "name"
-    t.string "prefecture"
+    t.bigint "prefecture_id"
     t.string "name_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
