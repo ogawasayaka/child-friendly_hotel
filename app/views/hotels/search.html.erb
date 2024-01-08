@@ -1,0 +1,16 @@
+<h1> 検索結果 </h1>
+
+<% if @results.length !=0 %>
+
+<% @results.each do |hotel| %>
+  <%if hotel%>
+    <li>
+      <%= hotel.name %>
+    </li>
+    <%end%>
+  <% end %>
+<% else %>
+  該当する宿はありません
+<% end %>
+<br>
+<%= link_to 'トップページへ戻る', root_path %>
