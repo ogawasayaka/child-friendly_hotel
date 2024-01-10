@@ -8,5 +8,6 @@ class HotelsController < ApplicationController
   def search
     @q = Hotel.ransack(params[:q])
     @results = @q.result(distinct: true)
+    @reviews = Review.where(hotel_id: params[:hotel_id])
   end
 end

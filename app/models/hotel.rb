@@ -5,6 +5,6 @@ class Hotel < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["prefecture"]
+    ["prefecture","review"]
   end
 end
