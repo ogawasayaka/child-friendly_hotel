@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   root 'static_pages#top'
   get 'term', to: 'static_pages#term'
   get 'privacy', to: 'static_pages#privacy'
-  
+
+  resources :hotels do
+    collection do
+      get 'search' 
+    end
+  end
   # Defines the root path route ("/")
   # root "articles#index"
 end

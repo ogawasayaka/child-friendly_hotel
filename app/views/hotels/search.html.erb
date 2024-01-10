@@ -1,0 +1,34 @@
+
+<% if @results.length !=0 %>
+
+<% @results.each do |hotel| %>
+  <%if hotel%>
+    <div class="card w-3/5 bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title"><%= hotel.name %></h2>
+        <div class="card-actions justify-end">
+          <button class="btn btn-primary">詳細</button>
+        </div>
+        <div class = >
+        <p>口コミ</p>
+        </div>
+        <div>
+        <blockquote>
+          <%= hotel.reviews.first.review %>
+        </blockquote>
+        </div>
+        <div>
+          <%= hotel.reviews.first.review_user %>
+          <%= hotel.reviews.first.review_time %>
+          <a href="<%= hotel.reviews.first.url%>" target="_blank">引用元：楽天トラベルお客さまの声</a>
+        </div>
+      </div>
+    </div>
+    
+    <%end%>
+  <% end %>
+<% else %>
+  該当する宿はありません
+<% end %>
+<br>
+<%= link_to 'トップページへ戻る', root_path %>
