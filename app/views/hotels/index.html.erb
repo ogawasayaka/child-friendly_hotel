@@ -1,5 +1,17 @@
+<div class = text-center items-center justify-center> 
 <%= search_form_for @q, url: search_hotels_path do |f| %>
-  <%= f.collection_select :prefecture_id_eq, @prefectures, :id, :name, include_blank: 'すべての都道府県' %> 
+  <div>
+    <%= f.collection_select :prefecture_id_eq, @prefectures, :id, :name, include_blank: 'すべての都道府県' %>
+  </div>
+  
+  <div>
+    <%= f.label  :reviews_age_eq, '子供の年齢'%>
+    <%= f.radio_button :reviews_age_eq, nil %>指定なし
+    <%= f.radio_button :reviews_age_eq, 0 %>0歳
+    <%= f.radio_button :reviews_age_eq, 1 %>1歳
+  </div>
   <br>
-  <%= f.submit '検索' %>
+    <%= f.submit '検索' %>
+  </div>
 <% end %>
+</div>

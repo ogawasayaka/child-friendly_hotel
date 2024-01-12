@@ -8,6 +8,11 @@ class HotelsController < ApplicationController
   def search
     @q = Hotel.ransack(params[:q])
     @results = @q.result(distinct: true)
-    @reviews = Review.where(hotel_id: params[:hotel_id])
+    reviews_age_eq = params[:q][:reviews_age_eq]
+    if reviews_age_eq.present?
+      @reviews = Review.joins(:hotel).merge(@results).where(age: reviews_age_eq)
+    else
+      @reviews = Review.joins(:hotel).merge(@results)
+    end
   end
 end
