@@ -6,6 +6,22 @@
     <div class="card w-3/5 bg-base-100 shadow-xl center"> 
       <div class="card-body">
         <h2 class="card-title"><%= hotel.name %></h2> 
+          
+  
+    <% hotel_api = @hotel_apis.find { |api| api[:hotel_name] == hotel.name } %>
+      
+      <% if hotel_api %>
+          <strong>住所:</strong> <%= hotel_api[:address1] %> <%= hotel_api[:address2]%><br>
+          <img src="<%= hotel_api[:hotel_image] %>"><img src="<%= hotel_api[:room_image] %>"><br>
+          <strong>Review Count:</strong> <%= hotel_api[:review_count] %><br>
+          <strong>Review Average:</strong> <%= hotel_api[:review_average] %>
+      
+  <% else %>
+  <li>ホテル情報を表示できません。</li>
+  <%end%>
+
+
+
           <div class="card-actions justify-end"> 
             <button class="btn btn-primary">詳細</button> </div> 
             <% hotel_reviews.each do |review| %> 

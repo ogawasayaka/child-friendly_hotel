@@ -44,10 +44,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_06_151009) do
     t.text "review"
     t.text "url"
     t.integer "age"
-    t.integer "hotel_id"
+    t.bigint "hotel_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_reviews_on_hotel_id"
   end
 
   add_foreign_key "prefectures", "regions"
+  add_foreign_key "reviews", "hotels"
 end
