@@ -6,7 +6,7 @@ class CreateReviews < ActiveRecord::Migration[7.0]
       t.text :review
       t.text :url
       t.integer :age
-      t.integer :hotel_id
+      t.references :hotel, foreign_key: true
 
       t.timestamps
     end
