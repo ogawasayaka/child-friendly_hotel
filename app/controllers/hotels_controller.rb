@@ -23,10 +23,9 @@ class HotelsController < ApplicationController
   @hotel_apis = []
   
   @results.each do |hotel|
+    hotel.name = hotel.name[0, 20]
     encoded_name = URI.encode_www_form_component(hotel.name)
   
-
-
     rakuten_url = "https://app.rakuten.co.jp/services/api/Travel/KeywordHotelSearch/20170426?format=json&elements=hotelName,address1,address2,hotelImageUrl,roomImageUrl,reviewCount,reviewAverage&formatVersion=2&keyword=#{encoded_name}&applicationId=#{ENV['id']}"
     uri = URI.parse(rakuten_url)
     response = Net::HTTP.get_response(uri)
@@ -42,9 +41,7 @@ class HotelsController < ApplicationController
           review_average: detail["hotels"][0][0]["hotelBasicInfo"]["reviewAverage"]
         }
         @hotel_apis << hotel_api
-  
       end
-      end
-      
+    end
   end
 end
