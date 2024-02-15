@@ -1,7 +1,7 @@
 
 
   <% if @reviews.presence %>
-
+  <%= render 'hotels/map' %>
   <% @reviews.group_by{|review|review.hotel}.each do |hotel, hotel_reviews| %> 
     <div class="card w-3/5 bg-base-100 shadow-xl center"> 
       <div class="card-body">

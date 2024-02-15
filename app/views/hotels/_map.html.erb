@@ -1,0 +1,52 @@
+<div id="map" style="height: 400px; width: 100%;"></div>
+<script>
+  let map;
+  let service;
+  let infowindow;
+
+  async function initMap() {
+    infowindow = new google.maps.InfoWindow();
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 15
+    });
+
+    service = new google.maps.places.PlacesService(map);
+
+    const hotelNames = <%= @results.map { |hotel| hotel.name }.to_json.html_safe %>;
+    const bounds = new google.maps.LatLngBounds();
+
+    for (const hotelName of hotelNames) {
+      const request = {
+        query: hotelName,
+        fields: ["name", "geometry"],
+      };
+
+      await new Promise((resolve, reject) => {
+        service.findPlaceFromQuery(request, (results, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+            results.forEach(function(result) {
+              createMarker(result);
+              bounds.extend(result.geometry.location);
+            });
+          }
+          resolve();
+        });
+      });
+    }
+
+    map.fitBounds(bounds);
+  }
+
+  function createMarker(place) {
+    const marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, "click", function() {
+      infowindow.setContent(place.name);
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_api'] %>&libraries=places&callback=initMap" async defer></script>
