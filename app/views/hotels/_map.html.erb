@@ -21,18 +21,18 @@
         fields: ["name", "geometry"],
       };
 
-      await new Promise((resolve, reject) => {
-        service.findPlaceFromQuery(request, (results, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            results.forEach(function(result) {
-              createMarker(result);
-              bounds.extend(result.geometry.location);
-            });
-          }
-          resolve();
-        });
-      });
-    }
+    await new Promise(async (resolve, reject) => {
+      service.findPlaceFromQuery(request, async (results, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+      for (const result of results) {
+        await createMarker(result); 
+        bounds.extend(result.geometry.location);
+        }
+      }
+      resolve();
+    });
+  });
+  }
 
     map.fitBounds(bounds);
   }
