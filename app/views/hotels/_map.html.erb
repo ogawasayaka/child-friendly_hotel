@@ -1,0 +1,48 @@
+<div id="map" style="height: 400px; width: 100%;"></div>
+<script>
+  let map;
+  let infowindow;
+
+  async function initMap() {
+    infowindow = new google.maps.InfoWindow();
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 15
+    });
+
+
+    const geocoder = new google.maps.Geocoder();
+    const bounds = new google.maps.LatLngBounds();
+    const hotelAddresses = <%= @hotel_apis.map { |hotel| "#{hotel[:address1]}, #{hotel[:address2]}" }.to_json.html_safe %>;
+
+for (let i = 0; i < hotelAddresses.length; i++) {
+      const address = hotelAddresses[i];
+      await new Promise((resolve, reject) => {
+        geocoder.geocode({ 'address': address }, (results, status) => {
+          if (status === 'OK' && results) {
+            const result = results[0];
+            createMarker(result,  <%= @hotel_apis.to_json.html_safe %>[i]); // ホテルのインデックスを渡す
+            bounds.extend(result.geometry.location);
+            resolve();
+          } else {
+            reject(new Error('Geocode was not successful for the following reason: ' + status));
+          }
+        });
+      });
+    }
+
+  map.fitBounds(bounds);
+}
+
+  function createMarker(place,hotelInfo) {
+    const marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, "click", function() {
+      infowindow.setContent(`<p>${hotelInfo.hotel_name}</p>`);
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_api'] %>&callback=initMap" async defer></script>
