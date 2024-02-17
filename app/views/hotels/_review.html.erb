@@ -1,0 +1,7 @@
+
+<% hotel_reviews.each do |review| %> 
+  <div> <%= review.review_user %> <%= review.review_time %> 
+    <a href="<%= review.url%>" target="_blank">引用元：楽天トラベルお客さまの声</a> 
+  </div>
+  <blockquote> <%= review.review %> </blockquote>
+<% end %>
