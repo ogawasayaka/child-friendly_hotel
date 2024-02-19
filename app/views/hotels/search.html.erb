@@ -3,25 +3,25 @@
   <% if @reviews.presence %>
   <%= render 'hotels/map' %>
   <% @reviews.group_by{|review|review.hotel}.each do |hotel, hotel_reviews| %> 
-    <div class="card w-3/5 bg-base-100 shadow-xl center"> 
+    <div class="card bg-base-100 shadow-xl center"> 
       <div class="card-body">
         <h2 class="card-title"><%= hotel.name %></h2> 
+      <div class="card-actions justify-end"> 
+        <a href="<%= hotel_path(hotel) %>" class="btn btn-primary">詳細</a> 
+      </div> 
           
       <% hotel_api = @hotel_apis.find { |api| api[:hotel_name] == hotel.name } %>
       
       <% if hotel_api %>
+        <%= hotel_api[:hotel_special] %>
         <strong>住所:</strong> <%= hotel_api[:address1] %> <%= hotel_api[:address2]%><br>
-        <img src="<%= hotel_api[:hotel_image] %>"><img src="<%= hotel_api[:room_image] %>"><br>
-        <strong>Review Count:</strong> <%= hotel_api[:review_count] %><br>
-        <strong>Review Average:</strong> <%= hotel_api[:review_average] %>
+        <img src="<%= hotel_api[:hotel_image] %>"><br>
+        <strong>口コミ</strong> 平均 <%= hotel_api[:review_average] %>【口コミ数 全<%= hotel_api[:review_count] %>件】
       
       <% else %>
         <li>ホテル情報を表示できません。</li>
       <%end%>
   
-      <div class="card-actions justify-end"> 
-        <button class="btn btn-primary">詳細</button> 
-      </div> 
       <%= render partial:'hotels/review', locals: { hotel_reviews: hotel_reviews } %>
     </div> 
   </div>

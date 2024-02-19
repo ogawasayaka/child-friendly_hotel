@@ -1,0 +1,19 @@
+<% if @hotel_api %>
+  <div class="card-body">
+    <h2 class="card-title"><%= @hotel_api[:hotel_name] %></h2>
+      <%= @hotel_api[:hotel_special] %>
+      <strong>住所:</strong> <%= @hotel_api[:address1] %> <%= @hotel_api[:address2] %><br>
+      <img src="<%= @hotel_api[:hotel_image] %>"><img src="<%= @hotel_api[:room_image] %>"><br>      
+      <strong>料金:</strong> <%= @hotel_api[:min_charge] %>円〜<br>
+      <strong>口コミ</strong> 平均 <%= @hotel_api[:review_average] %>【口コミ数 全<%= @hotel_api[:review_count] %>件】
+
+      <% @reviews.each do |review| %>
+        <div> <%= review.review_user %> <%= review.review_time %> 
+          <a href="<%= review.url%>" target="_blank">引用元：楽天トラベルお客さまの声</a> 
+        </div>
+          <blockquote> <%= review.review %> </blockquote>
+      <% end %>
+  <div>
+<% else %>
+  <p>ホテルの情報が見つかりませんでした。</p>
+<% end %>
