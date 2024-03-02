@@ -13,7 +13,37 @@
         </div>
           <blockquote> <%= review.review %> </blockquote>
       <% end %>
-  <div>
-<% else %>
-  <p>ホテルの情報が見つかりませんでした。</p>
-<% end %>
+    
+  <%= form_with scope: :reservation, method: :get, local: false do |f| %>
+    <%= f.label :checkin_date, "チェックイン日" %>
+    <%= f.date_field :checkin_date, value: Date.today+30.days %>
+    <%= f.label :checkout_date, "チェックアウト日" %>
+    <%= f.date_field :checkout_date, value: Date.tomorrow+30.days %>
+    <%= f.label :adult_num, "人数（大人）" %>
+    <%= f.number_field :adult_num, type: :number, value: 2 %>
+    <%= f.label :infant_with_mb, "人数(幼児(食事・布団付))" %>
+    <%= f.number_field :infant_with_mb, type: :number, value: 0%>
+    <%= f.label :infant_with_m, "人数(幼児(食事のみ))" %>
+    <%= f.number_field :infant_with_m, type: :number, value: 0 %>
+    <%= f.label :infant_with_b, "人数(幼児(布団のみ))" %>
+    <%= f.number_field :infant_with_b, type: :number, value: 0 %>
+    <%= f.label :infant_without_mb, "人数(幼児(食事・布団なし))" %>
+    <%= f.number_field :infant_without_mb, type: :number, value: 0 %>
+    <%= f.submit "日付/人数を決定", data: { turbo: true, turbo_frame: "rooms-list" } %>
+  <% end %> 
+
+  <%= turbo_frame_tag "rooms-list" do %>
+    <% @room_info["hotels"].each do |hotel| %>
+      <% hotel["hotel"].each do |room_info| %>
+        <% room_info["roomInfo"].each do |room| %>
+          <h3>部屋名: <%= room["roomBasicInfo"]&.dig("roomName") %></h3>
+          <p>プラン名: <%= room["roomBasicInfo"]&.dig("planName") %></p>
+          <p>夕食: <%= room["roomBasicInfo"]&.dig("withDinnerFlag") == 0 ? "なし" : "あり" %></p>
+          <p>宿泊日: <%= room["dailyCharge"]&.dig("stayDate") %></p>
+          <p>宿泊料金: <%= room["dailyCharge"]&.dig("total") %>円</p>
+          <p>予約URL: <a href= "<%= room["roomBasicInfo"]&.dig("reserveUrl") %> "target="_blank">楽天トラベル予約リンク </a>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %> 
