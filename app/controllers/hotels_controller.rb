@@ -49,6 +49,18 @@ class HotelsController < ApplicationController
     @hotel = Hotel.find(params[:id])
     @hotel_api = fetch_hotel_api(@hotel.name)
     @reviews = @hotel.reviews
+    hotel_no = fetch_hotel_no(@hotel.name)
+    # フォームからのデータを取得
+    if params[:reservation]
+      checkin_date = params[:reservation][:checkin_date] # YYYY-MM-DD形式
+      checkout_date = params[:reservation][:checkout_date] # YYYY-MM-DD形式
+      adult_num = params[:reservation][:adult_num]
+      infant_with_mb = params[:reservation][:infant_with_mb]
+      infant_with_m = params[:reservation][:infant_with_m]
+      infant_with_b = params[:reservation][:infant_with_b] 
+      infant_without_mb = params[:reservation][:infant_witout_mb]
+      @room_info = check_vacant_rooms(hotel_no, checkin_date, checkout_date, adult_num, infant_with_mb,infant_with_m, infant_with_b, infant_without_mb)
+    end 
   end
 
     private
@@ -76,7 +88,30 @@ class HotelsController < ApplicationController
       
   }
     else
+      {}
+    end
+  end
+
+  def fetch_hotel_no(hotel_name)
+    encoded_name = URI.encode_www_form_component(hotel_name)
+    hotel_no_url = "https://app.rakuten.co.jp/services/api/Travel/KeywordHotelSearch/20170426?format=json&hotelThumbnailSize=1&elements=hotelNo&formatVersion=2&searchField=1&responseType=large&keyword=#{encoded_name}&applicationId=#{ENV['id']}"
+    uri = URI.parse(hotel_no_url)
+    response = Net::HTTP.get_response(uri)
+    detail = JSON.parse(response.body)
+  
+    if detail && detail["hotels"] && detail["hotels"][0] && detail["hotels"][0][0] && detail["hotels"][0][0]["hotelBasicInfo"]
+      return detail["hotels"][0][0]["hotelBasicInfo"]["hotelNo"]
+    else
       nil
     end
+  end
+  
+  def check_vacant_rooms(hotel_no, checkin_date, checkout_date, adult_num, infant_with_mb,infant_with_m, infant_with_b, infant_without_mb)
+    vacant_url = "https://app.rakuten.co.jp/services/api/Travel/VacantHotelSearch/20170426?format=json&elements=roomName,planName,withDinnerFlag,dinnerSelectFlag,breakfastSelectFlag,payment,reserveUrl,stayDate,rakutenCharge,total&checkinDate=#{checkin_date}&checkoutDate=#{checkout_date}&adultNum=#{adult_num}&infantWithMBNum=#{infant_with_mb}&infantWithMNum=#{infant_with_m}&infantWithBNum=#{infant_with_b}&infantWithoutMBNum=#{infant_without_mb}&hotelNo=#{hotel_no}&applicationId=#{ENV['id']}" 
+    uri = URI.parse(vacant_url)
+    response = Net::HTTP.get_response(uri)
+    room_info = JSON.parse(response.body)
+    @room_info = room_info
+    return @room_info
   end
 end
