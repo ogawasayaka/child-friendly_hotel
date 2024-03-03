@@ -59,8 +59,8 @@ class HotelsController < ApplicationController
       infant_with_m = params[:reservation][:infant_with_m]
       infant_with_b = params[:reservation][:infant_with_b] 
       infant_without_mb = params[:reservation][:infant_witout_mb]
-    end    
-    @room_info = check_vacant_rooms(hotel_no, checkin_date, checkout_date, adult_num, infant_with_mb,infant_with_m, infant_with_b, infant_without_mb)
+      @room_info = check_vacant_rooms(hotel_no, checkin_date, checkout_date, adult_num, infant_with_mb,infant_with_m, infant_with_b, infant_without_mb)
+    end 
   end
 
     private
