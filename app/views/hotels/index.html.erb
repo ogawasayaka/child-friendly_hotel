@@ -1,16 +1,163 @@
-<div class = text-center items-center justify-center> 
-<%= search_form_for @q, url: search_hotels_path do |f| %>
-  <div>
-    <%= f.collection_select :prefecture_id_eq, @prefectures, :id, :name, include_blank: 'すべての都道府県' %>
+<h1 class="text-2xl sm:flex justify-center">
+  <span class="material-icons">search</span>
+  宿と口コミを探す
+</h1>
+<div data-controller="area">
+<div class="sm:flex justify-center h-screen">
+  <div class="japan_map relative box-border card w-96 bg-base-100 shadow-xl md:card-content grid place-items-center"> 
+    <%= image_tag "japan_map.png",size: '546×506', alt: '日本地図', class: 'japan_map'%>
+    <div class="area_btn z-10  flex justify-center items-center bg-white border-3 border-black rounded-md p-1 mx-auto font-bold whitespace-nowrap">
+    <!-- 北海道・東北 -->
+      <div class="absolute top-[25%] left-[65%]">
+        <button class="btn btn-neutral btn-sm" onclick="my_modal_1.showModal()" data-area="1">北海道・東北</button>
+      </div>  
+      <dialog id="my_modal_1" class="modal">
+        <div class="modal-box" data-area-target="prefList" >
+          <div class="grid grid-cols-2 gap-4">
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="1" >北海道</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="2">青森県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="3">岩手県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="4">秋田県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="5">宮城県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="6">山形県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="7">福島県</button>
+          </div>
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn">Close</button>
+            </form>
+          </div>
+      </dialog>
+    <!-- 関東 -->
+      <div class="absolute top-[55%] left-[65%]">
+        <button class="btn btn-neutral btn-sm" onclick="my_modal_2.showModal()" data-area="2">関東</button>
+      </div>
+      <dialog id="my_modal_2" class="modal">
+        <div class="modal-box" data-area-target="prefList" >
+          <div class="grid grid-cols-2 gap-4">
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="8">茨城県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="9">栃木県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" div data-id="10">群馬県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" div data-id="11">埼玉県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" div data-id="12">千葉県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" div data-id="13">東京都</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="14">神奈川県</button>
+          </div>
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn">Close</button>
+            </form>
+          </div>
+      </dialog>
+      <!-- 中部 -->
+      <div class="absolute top-[35%] left-[45%]">
+        <button class="btn btn-neutral btn-sm" onclick="my_modal_3.showModal()" data-area="3">中部</button>
+      </div>
+      <dialog id="my_modal_3" class="modal">
+        <div class="modal-box" data-area-target="prefList" >
+          <div class="grid grid-cols-2 gap-4">
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="15">山梨県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="16">長野県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="17">新潟県</button>
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture"  data-id="18">富山県</button>
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture"  data-id="19">石川県</button>
+            <button class="btn btn-outline btn-secondary"  disabled="disabled" data-action="click->area#selectPrefecture" data-id="20">福井県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="21">静岡県</button>
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture" data-id="22">愛知県</button>
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture" data-id="23">岐阜県</button>
+          </div>
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn">Close</button>
+            </form>
+          </div>
+      </dialog>
+      <!-- 近畿 -->
+      <div class="absolute top-[65%] left-[40%]">
+        <button class="btn btn-neutral btn-sm" onclick="my_modal_4.showModal()" data-area="4" data-area="4">近畿</span>
+      </div>
+      <dialog id="my_modal_4" class="modal">
+        <div class="modal-box" data-area-target="prefList" >
+          <div class="grid grid-cols-2 gap-4">
+            <button class="btn btn-outline btn-secondary"  disabled="disabled" data-action="click->area#selectPrefecture" data-id="24">三重県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="25">滋賀県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="26">京都府</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture" data-id="27">大阪府</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="28">兵庫県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="29">奈良県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="30">和歌山県</button>
+          </div>
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </dialog>
+      <!-- 中国・四国 -->
+      <div class="absolute top-[52%] left-[10%]">
+        <button class="btn btn-neutral btn-sm" onclick="my_modal_5.showModal()" data-area="5">中国・四国</span>
+      </div>
+      <dialog id="my_modal_5" class="modal">
+        <div class="modal-box" data-area-target="prefList" >
+          <div class="grid grid-cols-2 gap-4">
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture"  data-id="31">鳥取県</button>
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture"  data-id="32">島根県</button>
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture"  data-id="33">岡山県</button>
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture"  data-id="34">広島県</button>
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture"  data-id="35">山口県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="36">香川県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="37">愛媛県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="38">徳島県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="39">高知県</button>
+          </div>
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn">Close</button>
+            </form>
+          </div>
+      </dialog>
+      <!-- 九州・沖縄 -->
+      <div class="absolute top-[78%] left-[5%]">
+        <button class="btn btn-neutral btn-sm" onclick="my_modal_6.showModal()" data-area="6">九州・沖縄</span>
+      </div>
+      <dialog id="my_modal_6" class="modal">
+        <div class="modal-box" data-area-target="prefList" >
+          <div class="grid grid-cols-2 gap-4">
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="40">福岡県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="41">佐賀県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="42">長崎県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="43">熊本県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="44">大分県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="45">宮崎県</button>
+            <button class="btn btn-outline btn-secondary" data-action="click->area#selectPrefecture"  data-id="46">鹿児島県</button>
+            <button class="btn btn-outline btn-secondary" disabled="disabled" data-action="click->area#selectPrefecture"  data-id="47">沖縄県</button>
+          </div>
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn">Close</button>
+            </form>
+          </div>
+      </dialog>
+    </div>
   </div>
-  
-  <div>
-    <%= f.label  :reviews_age_eq, '子供の年齢'%>
-    <%= f.radio_button :reviews_age_eq, nil %>指定なし
-    <%= f.radio_button :reviews_age_eq, 0 %>0歳
-    <%= f.radio_button :reviews_age_eq, 1 %>1歳
-  </div>
-  <br>
-    <%= f.submit '検索' %>
-<% end %>
+
+<div class="grid place-items-start md:place-items-center">
+  <%= search_form_for @q, url: search_hotels_path do |f| %>
+    <div class="mb-4">
+      <%= f.label :prefecture_id_eq, '都道府県', class: "font-medium" %>
+      <%= f.collection_select :prefecture_id_eq,  @prefectures, :id, :name, {include_blank: 'すべての都道府県'}, {class: "form-select mt-1 block w-full rounded-md border-gray-300 shadow-sm"} %>
+    </div>
+    <div class="space-x-2">
+      <%= f.label  :reviews_age_eq, '子供の年齢', class: "font-medium" %>
+      <div class="flex items-center space-x-2">
+        <%= f.radio_button :reviews_age_eq, nil, class: "form-radio"  %><span>指定なし</span>
+        <%= f.radio_button :reviews_age_eq, 0, class: "form-radio"  %><span>0歳</span>
+        <%= f.radio_button :reviews_age_eq, 1, class: "form-radio"  %><span>1歳</span>
+      </div>
+    </div>
+    <br>
+      <%= f.submit '検索', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <% end %>
+</div>
+</div>
 </div>

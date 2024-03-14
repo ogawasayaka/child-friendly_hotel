@@ -108,6 +108,10 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    importmap-rails (1.2.3)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.7.1)
     irb (1.11.0)
       rdoc
@@ -271,6 +275,7 @@ DEPENDENCIES
   dockerfile-rails (>= 1.6)
   dotenv-rails
   factory_bot_rails
+  importmap-rails
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
