@@ -66,8 +66,6 @@
                     <%= info["roomBasicInfo"]["planName"] %>
                   </div>
                   <p>部屋名: <%= info["roomBasicInfo"]["roomName"] %></p>
-                  <p>夕食: <%= info["roomBasicInfo"]["withDinnerFlag"] == 1 ? "あり" : "なし" %></p>
-                  <p>朝食: <%= info["roomBasicInfo"]["withBreakfastFlag"] == 1 ? "あり" : "なし" %></p>
                   <%= link_to '予約リンク（→楽天トラベルサイト）', info["roomBasicInfo"]["reserveUrl"], class: "link link-info" %>
                 <% end %>
                 <!-- dailyChargeの表示 -->
