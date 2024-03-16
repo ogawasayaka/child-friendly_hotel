@@ -1,9 +1,15 @@
-
-
+<br>
+<h1 class="text-2xl sm:flex justify-center">
+  <span class="material-icons">hotel</span>
+  宿泊施設一覧
+</h1>
+<br>
+<div class="item-center h-screen">
+  
   <% if @reviews.presence %>
   <%= render 'hotels/map' %>
     <% @reviews.group_by{|review|review.hotel}.each do |hotel, hotel_reviews| %>  
-      <div class="card bg-base-100 shadow-xl">
+      <div class="card bg-primary shadow-xl" data-hotel-name="<%= hotel.name %>">
         <div class="card-body">
             <h2 class="card-title"><%= hotel.name %></h2>    
             <div class="card-actions justify-end">
@@ -38,7 +44,7 @@
     <%end%>
   <% else %>
     該当する宿はありません
+      <a href= "<%=root_path%>" class="btn btn-neutral">トップページへ戻る</a>
   <% end %>
   <br>
-  <%= link_to 'トップページへ戻る', root_path %>
-
+</div>
