@@ -1,3 +1,10 @@
+<br>
+<h1 class="text-2xl sm:flex justify-center">
+  <span class="material-icons">hotel</span>
+  宿泊施設詳細
+</h1>
+<br>
+
 <% if @hotel_api %>
   <div class="card-body">
     <h2 class="card-title"><%= @hotel_api[:hotel_name] %></h2>
@@ -32,26 +39,38 @@
           <blockquote> <%= review.review %> </blockquote>
         </div>
       <% end %>
+<br>
+<br>
 <div class="divider divider-">予約情報 入力フォーム</div>
-  <div class="flex justify-center">
-    <%= form_with scope: :reservation, method: :get, local: false do |f| %>
-      <%= f.label :checkin_date, "チェックイン日" %>
-      <%= f.date_field :checkin_date, value: Date.today + 30.days %><br>
-      <%= f.label :checkout_date, "チェックアウト日" %>
-      <%= f.date_field :checkout_date, value: Date.tomorrow + 30.days %><br>
-      <%= f.label :adult_num, "人数（大人）" %>
-      <%= f.number_field :adult_num, type: :number, value: 2 %><br>
-      <%= f.label :infant_with_mb, "人数(幼児(食事・布団付))" %>
-      <%= f.number_field :infant_with_mb, type: :number, value: 0%><br>
-      <%= f.label :infant_with_m, "人数(幼児(食事のみ))" %>
-      <%= f.number_field :infant_with_m, type: :number, value: 0 %><br>
-      <%= f.label :infant_with_b, "人数(幼児(布団のみ))" %>
-      <%= f.number_field :infant_with_b, type: :number, value: 0 %><br>
-      <%= f.label :infant_without_mb, "人数(幼児(食事・布団なし))" %>
-      <%= f.number_field :infant_without_mb, type: :number, value: 0 %><br>
-      <button class="btn btn-secondary"><%= f.submit "日付/人数を決定", data: { turbo: true, turbo_frame: "rooms-list" } %></button>
-    <% end %>
-
+  <div class="sm:flex justify-center items-center h-screen"> 
+    <div class="p-4 border-2 border-gray">
+      <%= form_with scope: :reservation, method: :get, local: false do |f| %>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-2 font-bold">宿泊日</div>
+          <div>
+            <%= f.label :checkin_date, "チェックイン" %>
+            <%= f.date_field :checkin_date, value: Date.today + 30.days %><br>
+            <%= f.label :checkout_date, "チェックアウト" %>
+            <%= f.date_field :checkout_date, value: Date.tomorrow + 30.days %><br>
+          </div>
+          <div class="col-span-2 font-bold">人数</div>
+          <div>
+            <%= f.label :adult_num, "大人" %>
+            <%= f.number_field :adult_num, type: :number, value: 2 %><br>
+            <%= f.label :infant_with_mb, "幼児(食事・布団付)" %>
+            <%= f.number_field :infant_with_mb, type: :number, value: 0%><br>
+            <%= f.label :infant_with_m, "幼児(食事のみ)" %>
+            <%= f.number_field :infant_with_m, type: :number, value: 0 %><br>
+            <%= f.label :infant_with_b, "幼児(布団のみ)" %>
+            <%= f.number_field :infant_with_b, type: :number, value: 0 %><br>
+            <%= f.label :infant_without_mb, "幼児(食事・布団なし)" %>
+            <%= f.number_field :infant_without_mb, type: :number, value: 0 %><br>
+          </div>
+        </div>
+        <br>
+        <button class="btn btn-secondary"><%= f.submit "日付/人数を決定", data: { turbo: true, turbo_frame: "rooms-list" } %></button>
+      <% end %>
+    </div>
     <div class="card w-96 bg-primary shadow-xl" >  
       <% if @room_info && @room_info["hotels"].present? %>
         <%= turbo_frame_tag "rooms-list" do %>
@@ -80,7 +99,6 @@
       <% else %>
         <%= " " %>
       <% end %>
-    </div>
   </div>
 <% end %> 
     </div>
