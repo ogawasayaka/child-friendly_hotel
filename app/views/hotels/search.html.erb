@@ -1,34 +1,51 @@
-
-
+<br>
+<h1 class="text-2xl sm:flex justify-center">
+  <span class="material-icons">hotel</span>
+  宿泊施設一覧
+</h1>
+<br>
+<div class="item-center h-screen">
+  
   <% if @reviews.presence %>
   <%= render 'hotels/map' %>
-  <% @reviews.group_by{|review|review.hotel}.each do |hotel, hotel_reviews| %> 
-    <div class="card bg-base-100 shadow-xl center"> 
-      <div class="card-body">
-        <h2 class="card-title"><%= hotel.name %></h2> 
-      <div class="card-actions justify-end"> 
-        <a href="<%= hotel_path(hotel) %>" class="btn btn-primary">詳細</a> 
-      </div> 
-          
-      <% hotel_api = @hotel_apis.find { |api| api[:hotel_name] == hotel.name } %>
-      
-      <% if hotel_api %>
-        <%= hotel_api[:hotel_special] %>
-        <strong>住所:</strong> <%= hotel_api[:address1] %> <%= hotel_api[:address2]%><br>
-        <img src="<%= hotel_api[:hotel_image] %>"><br>
-        <strong>口コミ</strong> 平均 <%= hotel_api[:review_average] %>【口コミ数 全<%= hotel_api[:review_count] %>件】
-      
-      <% else %>
-        <li>ホテル情報を表示できません。</li>
-      <%end%>
-  
-      <%= render partial:'hotels/review', locals: { hotel_reviews: hotel_reviews } %>
-    </div> 
-  </div>
-  <%end%>
+    <% @reviews.group_by{|review|review.hotel}.each do |hotel, hotel_reviews| %>  
+      <div class="card bg-base-100 shadow-xl border border-gray-200" data-hotel-name="<%= hotel.name %>">
+        <div class="card-body">
+            <h2 class="card-title"><%= hotel.name %></h2>    
+            <div class="card-actions justify-end">
+              <a href="<%= hotel_path(hotel) %>" class="btn btn-secondary text-white">詳細</a>
+            </div>
+          <% hotel_api = @hotel_apis.find { |api| api[:hotel_name] == hotel.name } %>
+          <% if hotel_api %>
+              <%= hotel_api[:hotel_special] %>
+              <div>
+                <span class="material-icons">location_on</span>
+                <%= hotel_api[:address1] %><%= hotel_api[:address2]%>
+              </div>
+              <img src="<%= hotel_api[:hotel_image] %>" class="max-w-xs">
+              <div class=text-xs>© RakutenTravel</div>
+              <div class="rating rating-sm">
+                <span class="material-icons">reviews</span>
+                平均 <%= hotel_api[:review_average] %>
+                  <% 5.times do |i| %>
+                    <% if i < hotel_api[:review_average].to_i %>
+                      <svg class="h-5 w-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.37 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.785.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.049 8.719c-.782-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                    <% else %>
+                      <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.37 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.785.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.049 8.719c-.782-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                    <% end %>
+                  <% end %>
+                【口コミ数 全<%= hotel_api[:review_count] %>件】
+              </div>
+            <% else %>
+            <li>ホテル情報を表示できません。</li>
+          <%end%>
+              <%= render partial:'hotels/review', locals: { hotel_reviews: hotel_reviews } %>
+        </div> 
+      </div>
+    <%end%>
   <% else %>
     該当する宿はありません
+      <a href= "<%=root_path%>" class="btn btn-neutral">トップページへ戻る</a>
   <% end %>
   <br>
-  <%= link_to 'トップページへ戻る', root_path %>
-
+</div>

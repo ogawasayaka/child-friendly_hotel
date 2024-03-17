@@ -1,15 +1,41 @@
+<br>
+<h1 class="text-2xl sm:flex justify-center">
+  <span class="material-icons">hotel</span>
+  宿泊施設詳細
+</h1>
+<br>
+
 <% if @hotel_api %>
   <div class="card-body">
     <h2 class="card-title"><%= @hotel_api[:hotel_name] %></h2>
       <div class="text-xs"><%= @hotel_api[:hotel_special] %></div>
-      <strong>住所:</strong> <%= @hotel_api[:address1] %> <%= @hotel_api[:address2] %><br>
-      <div class="flex justify-center">
-        <div><img src="<%= @hotel_api[:hotel_image] %>"></div><br>
-        <div> <img src="<%= @hotel_api[:room_image] %>"></div>
+      <div>
+        <span class="material-icons">location_on</span><%= @hotel_api[:address1] %> <%= @hotel_api[:address2] %><br>
       </div>
-      <strong>料金:</strong> <%= @hotel_api[:min_charge] %>円〜<br> 
+      
+    <div class="max-w-xs relative">
+      <label class="swap swap-flip cursor-pointer">
+        <input type="checkbox">
+          <div class="absolute top-1/2 right-0 transform -translate-y-1/2 p-4 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        <div class="swap-on">
+          <img src="<%= @hotel_api[:room_image] %>">
+          <div class="text-xs">© RakutenTravel</div>
+        </div>
+        <div class="swap-off">
+          <img src="<%= @hotel_api[:hotel_image] %>">
+          <div class="text-xs">© RakutenTravel</div>
+        </div>
+      </label>
+    </div>
+      <div>
+        <span class="material-icons">currency_yen</span> <%= @hotel_api[:min_charge] %>円〜<br> 
+      </div>
       <div class="rating rating-sm">
-      <strong>口コミ</strong> 平均 <%= @hotel_api[:review_average] %>
+      <span class="material-icons">reviews</span> 平均 <%= @hotel_api[:review_average] %>
         <% 5.times do |i| %>
           <% if i < @hotel_api[:review_average].to_i %>
             <svg class="h-5 w-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.37 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.785.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.049 8.719c-.782-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"/></svg>
@@ -21,31 +47,45 @@
       </div>
 
       <% @reviews.each do |review| %>
-        <div> <%= review.review_user %> <%= review.review_time %> 
+        <div><span class="material-icons">escalator_warning</span><%= review.review_user %> <%= review.review_time %> 
         <a href="<%= review.url%>" class="link link-info" target="_blank">引用元：楽天トラベルお客さまの声</a>
         </div>
+        <div class="text-sm">
           <blockquote> <%= review.review %> </blockquote>
+        </div>
       <% end %>
-<div class="divider divider-">予約フォーム</div>
-  <div class="flex justify-center">
-    <%= form_with scope: :reservation, method: :get, local: false do |f| %>
-      <%= f.label :checkin_date, "チェックイン日" %>
-      <%= f.date_field :checkin_date, value: Date.today + 30.days %><br>
-      <%= f.label :checkout_date, "チェックアウト日" %>
-      <%= f.date_field :checkout_date, value: Date.tomorrow + 31.days %><br>
-      <%= f.label :adult_num, "人数（大人）" %>
-      <%= f.number_field :adult_num, type: :number, value: 2 %><br>
-      <%= f.label :infant_with_mb, "人数(幼児(食事・布団付))" %>
-      <%= f.number_field :infant_with_mb, type: :number, value: 0%><br>
-      <%= f.label :infant_with_m, "人数(幼児(食事のみ))" %>
-      <%= f.number_field :infant_with_m, type: :number, value: 0 %><br>
-      <%= f.label :infant_with_b, "人数(幼児(布団のみ))" %>
-      <%= f.number_field :infant_with_b, type: :number, value: 0 %><br>
-      <%= f.label :infant_without_mb, "人数(幼児(食事・布団なし))" %>
-      <%= f.number_field :infant_without_mb, type: :number, value: 0 %><br>
-      <button class="btn btn-secondary"><%= f.submit "日付/人数を決定", data: { turbo: true, turbo_frame: "rooms-list" } %></button>
-    <% end %>
-
+<br>
+<br>
+<div class="divider divider-">予約情報 入力フォーム</div>
+  <div class="sm:flex justify-center items-center h-screen"> 
+    <div class="p-4 border-2 border-gray bg-gray-100">
+      <%= form_with scope: :reservation, method: :get, local: false do |f| %>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-2 font-bold">宿泊日</div>
+          <div>
+            <%= f.label :checkin_date, "チェックイン" %>
+            <%= f.date_field :checkin_date, value: Date.today + 30.days %><br>
+            <%= f.label :checkout_date, "チェックアウト" %>
+            <%= f.date_field :checkout_date, value: Date.tomorrow + 30.days %><br>
+          </div>
+          <div class="col-span-2 font-bold">人数</div>
+          <div>
+            <%= f.label :adult_num, "大人" %>
+            <%= f.number_field :adult_num, type: :number, value: 2 %><br>
+            <%= f.label :infant_with_mb, "幼児(食事・布団付)" %>
+            <%= f.number_field :infant_with_mb, type: :number, value: 0%><br>
+            <%= f.label :infant_with_m, "幼児(食事のみ)" %>
+            <%= f.number_field :infant_with_m, type: :number, value: 0 %><br>
+            <%= f.label :infant_with_b, "幼児(布団のみ)" %>
+            <%= f.number_field :infant_with_b, type: :number, value: 0 %><br>
+            <%= f.label :infant_without_mb, "幼児(食事・布団なし)" %>
+            <%= f.number_field :infant_without_mb, type: :number, value: 0 %><br>
+          </div>
+        </div>
+        <br>
+        <button class="btn btn-secondary text-white"><%= f.submit "日付/人数を決定", data: { turbo: true, turbo_frame: "rooms-list" } %></button>
+      <% end %>
+    </div>
     <div class="card w-96 bg-primary shadow-xl" >  
       <% if @room_info && @room_info["hotels"].present? %>
         <%= turbo_frame_tag "rooms-list" do %>
@@ -55,10 +95,11 @@
               <!-- roomBasicInfoの表示 -->
                 <br>
                 <% if info["roomBasicInfo"].present? %>
-                  <div class="font-bold">プラン名: <%= info["roomBasicInfo"]["planName"] %></div>
+                  <div class="font-bold">
+                    <span class="material-icons">receipt_long</span>
+                    <%= info["roomBasicInfo"]["planName"] %>
+                  </div>
                   <p>部屋名: <%= info["roomBasicInfo"]["roomName"] %></p>
-                  <p>夕食: <%= info["roomBasicInfo"]["withDinnerFlag"] == 1 ? "あり" : "なし" %></p>
-                  <p>朝食: <%= info["roomBasicInfo"]["withBreakfastFlag"] == 1 ? "あり" : "なし" %></p>
                   <%= link_to '予約リンク（→楽天トラベルサイト）', info["roomBasicInfo"]["reserveUrl"], class: "link link-info" %>
                 <% end %>
                 <!-- dailyChargeの表示 -->
@@ -73,7 +114,6 @@
       <% else %>
         <%= " " %>
       <% end %>
-    </div>
   </div>
 <% end %> 
     </div>

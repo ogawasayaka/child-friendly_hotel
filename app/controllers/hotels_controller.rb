@@ -107,7 +107,7 @@ class HotelsController < ApplicationController
   end
   
   def check_vacant_rooms(hotel_no, checkin_date, checkout_date, adult_num, infant_with_mb,infant_with_m, infant_with_b, infant_without_mb)
-    vacant_url = "https://app.rakuten.co.jp/services/api/Travel/VacantHotelSearch/20170426?format=json&elements=roomName,planName,withDinnerFlag,dinnerSelectFlag,breakfastSelectFlag,payment,reserveUrl,stayDate,rakutenCharge,total&checkinDate=#{checkin_date}&checkoutDate=#{checkout_date}&adultNum=#{adult_num}&infantWithMBNum=#{infant_with_mb}&infantWithMNum=#{infant_with_m}&infantWithBNum=#{infant_with_b}&infantWithoutMBNum=#{infant_without_mb}&hotelNo=#{hotel_no}&applicationId=#{ENV['id']}" 
+    vacant_url = "https://app.rakuten.co.jp/services/api/Travel/VacantHotelSearch/20170426?format=json&elements=roomName,planName,payment,reserveUrl,stayDate,rakutenCharge,total&checkinDate=#{checkin_date}&checkoutDate=#{checkout_date}&adultNum=#{adult_num}&infantWithMBNum=#{infant_with_mb}&infantWithMNum=#{infant_with_m}&infantWithBNum=#{infant_with_b}&infantWithoutMBNum=#{infant_without_mb}&hotelNo=#{hotel_no}&applicationId=#{ENV['id']}" 
     uri = URI.parse(vacant_url)
     response = Net::HTTP.get_response(uri)
     room_info = JSON.parse(response.body)

@@ -82,4 +82,5 @@ gem "dockerfile-rails", ">= 1.6", :group => :development
 gem 'seed-fu'
 gem 'ransack'
 gem 'dotenv-rails'
+gem 'importmap-rails'
 

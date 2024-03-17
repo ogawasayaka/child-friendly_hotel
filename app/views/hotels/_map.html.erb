@@ -39,10 +39,26 @@ for (let i = 0; i < hotelAddresses.length; i++) {
       position: place.geometry.location
     });
 
-    google.maps.event.addListener(marker, "click", function() {
+    google.maps.event.addListener(marker, "mouseover", function() {
       infowindow.setContent(`<p>${hotelInfo.hotel_name}</p>`);
       infowindow.open(map, marker);
     });
-  }
+
+    google.maps.event.addListener(marker, "click", function() {
+    // ウィンドウにホテル名と詳細ボタンを表示
+    infowindow.setContent(`<p>${hotelInfo.hotel_name}</p><button id="detailButton">★宿情報を見る</button>`);
+    infowindow.open(map, marker);
+    // ウィンドウが開いた後に、宿情報ボタンがクリックされたときの処理
+    google.maps.event.addListenerOnce(infowindow, 'domready', () => {
+    document.getElementById('detailButton').addEventListener('click', () => {
+      const card = document.querySelector(`[data-hotel-name="${hotelInfo.hotel_name}"]`);
+        if (card) {
+          card.classList.add("highlighted-card");
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  });
+}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_api'] %>&callback=initMap" async defer></script>

@@ -1,18 +1,23 @@
 <br>
 <br>
-  <div class='justify-center items-center'>
-    <div>
-      <h1>child_friendly_hotel</h1>
-    </div>  
-    <div>
-      <h2>宿泊施設と子連れ宿泊客の口コミが探せるサービスです。</h2>
-    </div> 
-  
-    <div>
-      <%= link_to '宿泊施設を探す',hotels_path, class: "btn btn-secondry btn btn-xs transition hover:opacity-40 text-gray-500" %>
+  <div class="md:flex justify-center h-screen">
+    <div class="logo relative box-border w-96 bg-base-100 shadow-xl grid place-items-center"> 
+      <%= image_tag "logo.png",size: '546×506', alt: 'Child-friendly Hotel', class: 'logo'%>
+      <br>
+      <br>
+      <div class="text-sm justify-center">宿泊施設➕子連れ客の口コミを同時に探そう</div>
+        <h2 class="text-3xl sm:flex justify-center">
+          <%= link_to hotels_path, class: "btn btn-secondary flex items-center justify-center text-white" do %>
+            <span class="material-icons">search</span>
+            <span>宿と口コミを探す</span>
+          <% end %>
+        </h2>
+      <br>
+      <br>
+      <div class="text-xs">※宿泊施設は温泉宿が中心となっています。</div>
+      <br>
     </div>
-  
-  </div>
+  </div> 
 <br/>
 <br/>
   
