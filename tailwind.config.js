@@ -9,17 +9,17 @@ module.exports = {
       themes: [
         {
           mytheme: {
-                "primary": "#f3f4f6",
-                "secondary": "#fca5a5",
-                "accent": "#ef4444",
-                "neutral": "#fee2e2",
-                "base-100": "#f5f5f4",
-                "info": "#ef4444",
-                "success": "#881337",
-                "warning": "#ea580c",
-                "error": "#fbbf24",
+            "primary": "#ffedd5",
+            "secondary": "#ed5752",
+            "accent": "#a1be95",
+            "neutral": "#92aac7",
+            "base-100": "#ffff",
+            "info": "#e2dfa2",
+            "success": "#dc2626",
+            "warning": "#fca5a5",
+            "error": "#292524",
           },
         },
       ],
-}
+    }
 }

@@ -9,11 +9,11 @@
   <% if @reviews.presence %>
   <%= render 'hotels/map' %>
     <% @reviews.group_by{|review|review.hotel}.each do |hotel, hotel_reviews| %>  
-      <div class="card bg-primary shadow-xl" data-hotel-name="<%= hotel.name %>">
+      <div class="card bg-base-100 shadow-xl border border-gray-200" data-hotel-name="<%= hotel.name %>">
         <div class="card-body">
             <h2 class="card-title"><%= hotel.name %></h2>    
             <div class="card-actions justify-end">
-              <a href="<%= hotel_path(hotel) %>" class="btn btn-secondary">詳細</a>
+              <a href="<%= hotel_path(hotel) %>" class="btn btn-secondary text-white">詳細</a>
             </div>
           <% hotel_api = @hotel_apis.find { |api| api[:hotel_name] == hotel.name } %>
           <% if hotel_api %>

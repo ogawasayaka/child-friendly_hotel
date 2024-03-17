@@ -58,7 +58,7 @@
 <br>
 <div class="divider divider-">予約情報 入力フォーム</div>
   <div class="sm:flex justify-center items-center h-screen"> 
-    <div class="p-4 border-2 border-gray">
+    <div class="p-4 border-2 border-gray bg-gray-100">
       <%= form_with scope: :reservation, method: :get, local: false do |f| %>
         <div class="grid grid-cols-2 gap-4">
           <div class="col-span-2 font-bold">宿泊日</div>
@@ -83,7 +83,7 @@
           </div>
         </div>
         <br>
-        <button class="btn btn-secondary"><%= f.submit "日付/人数を決定", data: { turbo: true, turbo_frame: "rooms-list" } %></button>
+        <button class="btn btn-secondary text-white"><%= f.submit "日付/人数を決定", data: { turbo: true, turbo_frame: "rooms-list" } %></button>
       <% end %>
     </div>
     <div class="card w-96 bg-primary shadow-xl" >  

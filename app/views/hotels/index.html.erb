@@ -1,4 +1,4 @@
-<h1 class="text-2xl sm:flex justify-center">
+<h1 class="text-2xl sm:flex justify-center text-gray">
   <span class="material-icons">search</span>
   宿と口コミを探す
 </h1>
@@ -6,10 +6,10 @@
 <div class="sm:flex justify-center h-screen">
   <div class="japan_map relative box-border card w-96 bg-base-100 shadow-xl md:card-content grid place-items-center"> 
     <%= image_tag "japan_map.png",size: '546×506', alt: '日本地図', class: 'japan_map'%>
-    <div class="area_btn z-10  flex justify-center items-center bg-white border-3 border-black rounded-md p-1 mx-auto font-bold whitespace-nowrap">
+    <div class="area_btn z-10  flex justify-center items-cent border-3 border-black rounded-md p-1 mx-auto font-bold whitespace-nowrap">
     <!-- 北海道・東北 -->
       <div class="absolute top-[25%] left-[65%]">
-        <button class="btn btn-neutral btn-sm" onclick="my_modal_1.showModal()" data-area="1">北海道・東北</button>
+        <button class="btn btn-outline btn-secondary btn-sm" onclick="my_modal_1.showModal()" data-area="1">北海道・東北</button>
       </div>  
       <dialog id="my_modal_1" class="modal">
         <div class="modal-box" data-area-target="prefList" >
@@ -30,7 +30,7 @@
       </dialog>
     <!-- 関東 -->
       <div class="absolute top-[55%] left-[65%]">
-        <button class="btn btn-neutral btn-sm" onclick="my_modal_2.showModal()" data-area="2">関東</button>
+        <button class="btn btn-outline btn-secondary btn-sm" onclick="my_modal_2.showModal()" data-area="2">関東</button>
       </div>
       <dialog id="my_modal_2" class="modal">
         <div class="modal-box" data-area-target="prefList" >
@@ -51,7 +51,7 @@
       </dialog>
       <!-- 中部 -->
       <div class="absolute top-[35%] left-[45%]">
-        <button class="btn btn-neutral btn-sm" onclick="my_modal_3.showModal()" data-area="3">中部</button>
+        <button class="btn btn-outline btn-secondary btn-sm" onclick="my_modal_3.showModal()" data-area="3">中部</button>
       </div>
       <dialog id="my_modal_3" class="modal">
         <div class="modal-box" data-area-target="prefList" >
@@ -74,7 +74,7 @@
       </dialog>
       <!-- 近畿 -->
       <div class="absolute top-[65%] left-[40%]">
-        <button class="btn btn-neutral btn-sm" onclick="my_modal_4.showModal()" data-area="4" data-area="4">近畿</span>
+        <button class="btn btn-outline btn-secondary btn-sm" onclick="my_modal_4.showModal()" data-area="4" data-area="4">近畿</span>
       </div>
       <dialog id="my_modal_4" class="modal">
         <div class="modal-box" data-area-target="prefList" >
@@ -95,7 +95,7 @@
       </dialog>
       <!-- 中国・四国 -->
       <div class="absolute top-[52%] left-[10%]">
-        <button class="btn btn-neutral btn-sm" onclick="my_modal_5.showModal()" data-area="5">中国・四国</span>
+        <button class="btn btn-outline btn-secondary btn-sm" onclick="my_modal_5.showModal()" data-area="5">中国・四国</span>
       </div>
       <dialog id="my_modal_5" class="modal">
         <div class="modal-box" data-area-target="prefList" >
@@ -118,7 +118,7 @@
       </dialog>
       <!-- 九州・沖縄 -->
       <div class="absolute top-[78%] left-[5%]">
-        <button class="btn btn-neutral btn-sm" onclick="my_modal_6.showModal()" data-area="6">九州・沖縄</span>
+        <button class="btn btn-outline btn-secondary btn-sm" onclick="my_modal_6.showModal()" data-area="6">九州・沖縄</span>
       </div>
       <dialog id="my_modal_6" class="modal">
         <div class="modal-box" data-area-target="prefList" >
@@ -156,7 +156,7 @@
       </div>
     </div>
     <br>
-      <%= f.submit '検索', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+      <%= f.submit '検索', class: "btn btn-secondary text-white" %>
   <% end %>
 </div>
 </div>
