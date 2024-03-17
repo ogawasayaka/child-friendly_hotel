@@ -12,10 +12,25 @@
       <div>
         <span class="material-icons">location_on</span><%= @hotel_api[:address1] %> <%= @hotel_api[:address2] %><br>
       </div>
-      <div class="flex justify-center">
-        <div><img src="<%= @hotel_api[:hotel_image] %>"></div><br>
-        <div> <img src="<%= @hotel_api[:room_image] %>"></div>
-      </div>
+      
+    <div class="max-w-xs relative">
+      <label class="swap swap-flip cursor-pointer">
+        <input type="checkbox">
+          <div class="absolute top-1/2 right-0 transform -translate-y-1/2 p-4 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        <div class="swap-on">
+          <img src="<%= @hotel_api[:room_image] %>">
+          <div class="text-xs">© RakutenTravel</div>
+        </div>
+        <div class="swap-off">
+          <img src="<%= @hotel_api[:hotel_image] %>">
+          <div class="text-xs">© RakutenTravel</div>
+        </div>
+      </label>
+    </div>
       <div>
         <span class="material-icons">currency_yen</span> <%= @hotel_api[:min_charge] %>円〜<br> 
       </div>
