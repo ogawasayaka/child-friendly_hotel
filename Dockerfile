@@ -25,7 +25,7 @@ FROM base as build
 
 # Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential curl libpq-dev node-gyp pkg-config python-is-python3 git
+    apt-get install --no-install-recommends -y build-essential curl libpq-dev node-gyp pkg-config python-is-python3
 
 # Install JavaScript dependencies
 ARG NODE_VERSION=19.0.0
@@ -43,7 +43,7 @@ RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
 # Install node modules
-COPY --link .yarnrc package.json yarn.lock ./
+COPY --link .yarnrc package.json package-lock.json yarn.lock ./
 COPY --link .yarn/releases/* .yarn/releases/
 RUN yarn install --frozen-lockfile
 

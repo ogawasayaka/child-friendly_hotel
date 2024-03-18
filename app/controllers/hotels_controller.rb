@@ -23,7 +23,6 @@ class HotelsController < ApplicationController
     @hotel_apis = []
   
     @results.each do |hotel|
-      hotel.name = hotel.name[0, 20]
       encoded_name = URI.encode_www_form_component(hotel.name)
   
       rakuten_url = "https://app.rakuten.co.jp/services/api/Travel/KeywordHotelSearch/20170426?format=json&searchField=1&hotelThumbnailSize=1&elements=hotelName,address1,address2,hotelImageUrl,roomImageUrl,reviewCount,reviewAverage&formatVersion=2&keyword=#{encoded_name}&applicationId=#{ENV['id']}"
