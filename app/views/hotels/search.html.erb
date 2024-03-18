@@ -9,14 +9,14 @@
   <% if @reviews.presence %>
   <%= render 'hotels/map' %>
     <% @reviews.group_by{|review|review.hotel}.each do |hotel, hotel_reviews| %>  
-      <div class="card bg-base-100 shadow-xl border border-gray-200" data-hotel-name="<%= hotel.name %>">
+        <% hotel_api = @hotel_apis.find { |api| api[:hotel_name].start_with?(hotel.name) } %>
+        <% if hotel_api %>
+        <div class="card bg-base-100 shadow-xl border border-gray-200" data-hotel-name="<%= hotel.name %>">
         <div class="card-body">
             <h2 class="card-title"><%= hotel.name %></h2>    
             <div class="card-actions justify-end">
               <a href="<%= hotel_path(hotel) %>" class="btn btn-secondary text-white">詳細</a>
             </div>
-          <% hotel_api = @hotel_apis.find { |api| api[:hotel_name] == hotel.name } %>
-          <% if hotel_api %>
               <%= hotel_api[:hotel_special] %>
               <div>
                 <span class="material-icons">location_on</span>
@@ -36,12 +36,10 @@
                   <% end %>
                 【口コミ数 全<%= hotel_api[:review_count] %>件】
               </div>
-            <% else %>
-            <li>ホテル情報を表示できません。</li>
-          <%end%>
-              <%= render partial:'hotels/review', locals: { hotel_reviews: hotel_reviews } %>
+          <%= render partial:'hotels/review', locals: { hotel_reviews: hotel_reviews } %>
         </div> 
       </div>
+      <%end%>
     <%end%>
   <% else %>
     該当する宿はありません

@@ -84,6 +84,6 @@ test:
 #
 production:
   <<: *default
-  # database: child_friendly_hotel_production
+  database: child_friendly_hotel_production
   # username: child_friendly_hotel
   password: <%= ENV["CHILD_FRIENDLY_HOTEL_DATABASE_PASSWORD"] %>
