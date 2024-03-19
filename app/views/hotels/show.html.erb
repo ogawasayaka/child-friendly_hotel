@@ -83,11 +83,17 @@
           </div>
         </div>
         <br>
-        <button class="btn btn-secondary text-white"><%= f.submit "日付/人数を決定", data: { turbo: true, turbo_frame: "rooms-list" } %></button>
+        <button class="btn btn-secondary text-white" id="searchButton"><%= f.submit "日付/人数を決定", data: { turbo: true, turbo_frame: "rooms-list" } %></button>
       <% end %>
     </div>
-    <div class="card w-96 bg-primary shadow-xl" >  
-      <% if @room_info && @room_info["hotels"].present? %>
+    <div class="card w-96 bg-primary shadow-xl"id="roomsList" >  
+      <% if @room_info.nil? %>
+      <!-- 検索前なので何も表示しない -->
+      <% elsif @room_info && @room_info["hotels"].blank? %>
+        <div class="text-center py-4">
+          検索結果がありません。
+        </div>
+      <% else %>
         <%= turbo_frame_tag "rooms-list" do %>
           <% @room_info["hotels"].each do |hotel| %>
             <% hotel["hotel"].each do |h| %>
@@ -111,8 +117,6 @@
             <% end %>
           <% end %>
         <% end %>
-      <% else %>
-        <%= " " %>
       <% end %>
   </div>
 <% end %> 
