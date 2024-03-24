@@ -10,46 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_06_151009) do
+ActiveRecord::Schema[7.0].define(version: 20_240_106_151_009) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "hotels", force: :cascade do |t|
-    t.string "name"
-    t.bigint "prefecture_id"
-    t.string "name_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'hotels', force: :cascade do |t|
+    t.string 'name'
+    t.bigint 'prefecture_id'
+    t.string 'name_url'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "prefectures", force: :cascade do |t|
-    t.bigint "region_id", null: false
-    t.string "name"
-    t.string "name_en"
-    t.integer "sort"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["region_id"], name: "index_prefectures_on_region_id"
+  create_table 'prefectures', force: :cascade do |t|
+    t.bigint 'region_id', null: false
+    t.string 'name'
+    t.string 'name_en'
+    t.integer 'sort'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['region_id'], name: 'index_prefectures_on_region_id'
   end
 
-  create_table "regions", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'regions', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "reviews", force: :cascade do |t|
-    t.text "review_user"
-    t.datetime "review_time", precision: nil
-    t.text "review"
-    t.text "url"
-    t.integer "age"
-    t.bigint "hotel_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["hotel_id"], name: "index_reviews_on_hotel_id"
+  create_table 'reviews', force: :cascade do |t|
+    t.text 'review_user'
+    t.datetime 'review_time', precision: nil
+    t.text 'review'
+    t.text 'url'
+    t.integer 'age'
+    t.bigint 'hotel_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['hotel_id'], name: 'index_reviews_on_hotel_id'
   end
 
-  add_foreign_key "prefectures", "regions"
-  add_foreign_key "reviews", "hotels"
+  add_foreign_key 'prefectures', 'regions'
+  add_foreign_key 'reviews', 'hotels'
 end

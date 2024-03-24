@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :hotels do
     collection do
-      get 'search' 
+      get 'search'
     end
   end
   # Defines the root path route ("/")
