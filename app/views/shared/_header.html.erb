@@ -13,7 +13,7 @@
     </svg>
   </button>
   <ul id="menuList" class="absolute hidden text-base-content bg-accent text-white shadow-lg w-48 top-8 right-0 z-50">
-    <li><%link_to 'ログアウト', login_out, class: "block px-4 py-2"%></li>
+    <li><%= link_to 'ログアウト', logout_path, class: "block px-4 py-2"%></li>
     <% if @user %>
       <li><%=link_to 'マイページ','user_path(@user)', class: "block px-4 py-2" %></li>
     <% end %>
