@@ -4,8 +4,9 @@ class UserSessionsController < ApplicationController
   def create
     @user = login(params[:email], params[:password])
     if @user
-      redirect_back_or_to root_path
+      redirect_back_or_to root_path, success: 'ログインしました'
     else
+      flash.now[:alert] = 'ロクインに失敗しました'
       render :new
     end
   end
