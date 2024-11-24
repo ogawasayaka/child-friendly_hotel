@@ -9,16 +9,16 @@
     <div class="relative group ">
       <button id="menuButton" class="btn btn-square btn-ghost">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
-        </svg>
-      </button>
-      <ul id="menuList" class="absolute hidden text-base-content bg-accent text-white shadow-lg w-48 top-8 right-0 z-50">
-        <li><%= button_to 'ログアウト', logout_path, method: :delete, class: "block px-4 py-2" %></li>
-        <li><%=link_to 'マイページ',user_path(current_user.id), class: "block px-4 py-2" %></li>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+    </svg>
+  </button>
+  <ul id="menuList" class="absolute hidden text-base-content bg-accent text-white shadow-lg w-48 top-8 right-0 z-50">
+    <li><%=link_to '会員登録', new_user_path, class: "block px-4 py-2" %></li>
+    <li><%=link_to 'ログイン', login_path, class: "block px-4 py-2"%></li>
         <li><a href="#" class="block px-4 py-2">お問合せ</a></li>
     <!-- もっと多くのメニュー項目を追加できます -->
-      </ul>
-    </div>
+  </ul>
+  </div>
 
 
   </div>
@@ -29,5 +29,3 @@
   document.getElementById('menuList').classList.toggle('hidden');
 });
 </script>
-
-

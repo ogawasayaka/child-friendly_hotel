@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   root 'static_pages#top'
   get 'term', to: 'static_pages#term'
   get 'privacy', to: 'static_pages#privacy'
-  get 'login', to: 'user_sessions#new'
-  post'logout', to: 'user_sessions#destroy'
+  get '/login', to: 'user_sessions#new', as: :login
+  post '/login', to: 'user_sessions#create'
+  delete '/logout', to: 'user_sessions#destroy', as: :logout
 
   resources :hotels do
     collection do
@@ -12,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users, only: [:new, :create, :show, :edit]
   # Defines the root path route ("/")
   # root "articles#index"
 end
